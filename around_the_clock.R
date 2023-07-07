@@ -6,9 +6,13 @@ library(viridis)
 hdc <- data.frame(read.delim("re4b_commits.csv", sep=";", header = TRUE))
 
 # Nous filtrons ici les auteurs avec au moins 48 commits, et cherchons
+# comment ils sont répartis suivant l'heure.
+# p contient le maximum pour un utilisateur, afin d'avoir une échelle
+# pour chacun.
+#
 # We keep only authors with 48+ commits, and search how they split
 # during the day.
-# c hold the maximum for each user, to have a separate scale.
+# p hold the maximum for each user, to have a separate scale.
 #
 hdc2 <-hdc %>% group_by(Author) %>%
   mutate(nb=n()) %>%
@@ -29,6 +33,10 @@ our_labs_y_en <- "Number of commits"
 our_labs_y <- our_labs_y_en
 our_labs_title <- our_labs_title_en
 
+# Affiche chaque utilisateur, avec sa propre échelle basée
+# sur son maximum. La couleur est basée sur le nombre absolu
+# de commits.
+#
 # Display each user, with own scale based on his maximum,
 # to have 100% for each user. The absolute number is based
 # on the color.
